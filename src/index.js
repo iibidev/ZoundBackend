@@ -15,14 +15,19 @@ app.get(/^\/deezer\/(.*)/, async (req, res) => {
     const response = await fetch(deezerUrl);
     const data = await response.json();
 
-    res.json(data);
+    return res.status(200).json(data);
   } catch (err) {
     console.error("❌ Error en el proxy:", err);
-    res.status(500).json({ error: "Error al obtener datos de Deezer" });
+    return res.status(500).json({ error: "Error al obtener datos de Deezer" });
   }
 });
 
+//Para ver si el servidor está cargado.
+app.get("/checkStatus", (req, res)=>{
+  return res.status(200).json(true);
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, "0.0.0.0", () => {
+app.listen(PORT, () => {
   console.log(`✅ Proxy Deezer activo en el puerto ${PORT}`);
 });
