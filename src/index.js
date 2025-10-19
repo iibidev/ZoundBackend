@@ -27,6 +27,20 @@ app.get("/checkStatus", (req, res)=>{
   return res.status(200).json(true);
 });
 
+app.get("/trackLyrics", async (req, res) => {
+  const { title, artist } = req.body;
+  const url = `https://lyrics.lewdhutao.my.eu.org/v2/musixmatch/lyrics?title=${encodeURIComponent(title)}&artist=${encodeURIComponent(artist)}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error obteniendo la letra" });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Proxy Deezer activo en el puerto ${PORT}`);
