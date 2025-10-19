@@ -28,7 +28,7 @@ app.get("/checkStatus", (req, res)=>{
 });
 
 app.get("/trackLyrics", async (req, res) => {
-  const { title, artist } = req.body;
+  const { title, artist } = req.query;
   const url = `https://lyrics.lewdhutao.my.eu.org/v2/musixmatch/lyrics?title=${encodeURIComponent(title)}&artist=${encodeURIComponent(artist)}`;
 
   try {
